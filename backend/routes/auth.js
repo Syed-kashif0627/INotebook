@@ -5,9 +5,9 @@ const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
 const fetchuser=require('../middleware/fetchuser');
 
-const JWT_Secret='Kashif$06';
-
+const JWT_Secret='Kashifhe$06';
 const router=express.Router();
+
 //ROUTE1: User signup for first time using POST:/user/auth/createUser
 router.post('/createUser',[//checking constraints of email ,name ,password....etc;
     body('name','minimum length for name should be 3').isLength({min:3}),
@@ -23,7 +23,7 @@ router.post('/createUser',[//checking constraints of email ,name ,password....et
         if(user)
         return res.status(400).json({error:"User with this email Already exist!!!"});
         //Salting and Hashing the password
-        const salt=await bcrypt.genSaltSync(10);
+        const salt=bcrypt.genSaltSync(10);
         const secPswd=await bcrypt.hash(req.body.password,salt)
 
         user=await User.create({
@@ -50,7 +50,6 @@ router.post('/createUser',[//checking constraints of email ,name ,password....et
 })
 
 //ROUTE2: User Login using POST: user/auth/login
-
 router.post('/login',[
     body('email','Enter Valid Email').isEmail(),
     body('password','Password cant be blank').exists(),
@@ -85,7 +84,6 @@ router.post('/login',[
 })
 
 //ROUTE3: Sending User login details using post: user/auth/getuser
-
 router.post('/getuser',fetchuser,async (req,res)=>{
 
 

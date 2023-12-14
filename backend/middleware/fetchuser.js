@@ -1,5 +1,5 @@
 const jwt=require('jsonwebtoken')
-const JWT_Secret='Kashif$06';
+let JWT_Secret='Kashifhe$06';
 
 
 const fetchuser=(req,res,next)=>{
@@ -14,6 +14,7 @@ const fetchuser=(req,res,next)=>{
     //next() is used to start executing the next middleware
     next();
     }catch(err){
+        console.log(err)
         res.status(401).send({error:'please authenticate using a valid token'})
     }
 }
