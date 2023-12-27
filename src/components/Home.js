@@ -1,5 +1,4 @@
-import React from 'react'
-//import {NavLink} from 'react-router-dom';
+import Notes from "./Notes";
 
 const Home = () => {
   return (
@@ -23,7 +22,8 @@ const Home = () => {
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
           <br />
-          <h2>Your Notes</h2>
+
+          <Notes/>
       </div>
     </>
   )
