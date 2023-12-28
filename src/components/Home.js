@@ -6,20 +6,19 @@ const Home = () => {
       <div className='container my-3'>
         <h2>Take Notes</h2>
           <form>
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" placeholder='Enter gmail' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <div className="mb-3">
+              <label htmlFor="title" className="form-label">Title</label>
+              <input type="text" placeholder='Enter Note Title' className="form-control" name='title' id="title" aria-describedby="emailHelp"/>
             </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" placeholder='Enter Password' class="form-control" id="exampleInputPassword1"/>
+            <div className="mb-3">
+              <label htmlFor="description" className="form-label">Description</label>
+              <input type="text" placeholder='Enter Description' className="form-control" name="description" id="description"/>
             </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1"/>
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            <div className="mb-3">
+              <label htmlFor="tag" className="form-label">Tag</label>
+              <input type="text" className="form-control" id="tag" name="tag"/>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-primary">Submit</button>
           </form>
           <br />
 
