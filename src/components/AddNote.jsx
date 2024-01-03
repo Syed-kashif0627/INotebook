@@ -10,6 +10,7 @@ function AddNote() {
     const handlechange=(e)=>{
         e.preventDefault();
         addNote(note.title,note.description,note.tag);
+        setNote({title:"",description:"",tag:""})
     }
 
     const handleEvent=(event)=>{
@@ -22,17 +23,17 @@ function AddNote() {
           <form>
             <div className="mb-3">
               <label htmlFor="title" className="form-label">Title</label>
-              <input type="text" onChange={handleEvent} placeholder='Enter Note Title' className="form-control" name='title' id="title" aria-describedby="emailHelp"/>
+              <input type="text" onChange={handleEvent} placeholder='*Enter Note Title' value={note.title} className="form-control" name='title' id="title" aria-describedby="emailHelp" minLength={5} required/>
             </div>
             <div className="mb-3">
               <label htmlFor="description" className="form-label">Description</label>
-              <input type="text" onChange={handleEvent} placeholder='Enter Description' className="form-control" name="description" id="description"/>
+              <input type="text" onChange={handleEvent} placeholder='*Enter Description' value={note.description} className="form-control" name="description" id="description" minLength={5} required/>
             </div>
             <div className="mb-3">
               <label htmlFor="tag" className="form-label">Tag</label>
-              <input type="text" onChange={handleEvent} className="form-control" id="tag" name="tag"/>
+              <input type="text" onChange={handleEvent} className="form-control"value={note.tag} id="tag" name="tag"/>
             </div>
-            <button type="submit" onClick={handlechange} className="btn btn-primary">Add Note</button>
+            <button type="submit" disabled={note.title.length<5 || note.description.length<5} onClick={handlechange} className="btn btn-primary">Add Note</button>
           </form>
           <br />
       </div>
