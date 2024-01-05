@@ -54,20 +54,23 @@ router.post('/login',[
     body('email','Enter Valid Email').isEmail(),
     body('password','Password cant be blank').exists(),
 ],async (req,res)=>{
+    let success=true;
     const errors=validationResult(req);
-    if(!errors.isEmpty())
+    if(!errors.isEmpty()){
         return res.status(400).json({error:errors.array()})
-
+    }
     let {email,password}=req.body;
     try{
     let user=await User.findOne({email})
-    if(!user)
-      return res.status(400).json({error:"Enter Valid Email ID"})
-
+    if(!user){
+        success=false;
+      return res.status(400).json({success,error:"Enter Valid Email ID"})
+    }
     let authpass=await bcrypt.compare(password,user.password)
-    if(!authpass)
-      return res.status(400).json({error:'Invalid Password'})
-
+    if(!authpass){
+        success=false;
+      return res.status(400).json({success,error:'Invalid Password'})
+    }
     const data={
         user:{
             id:user.id
@@ -75,8 +78,8 @@ router.post('/login',[
     }
 
     let authtoken=jwt.sign(data,JWT_Secret);
-    
-    res.json({authtoken})
+    success=true;
+    res.json({success,authtoken})
 }catch(err){
     console.log(err.message);
     res.status(500).send("Internal Server Error Occured")
