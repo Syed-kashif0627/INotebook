@@ -14,14 +14,15 @@ router.post('/createUser',[//checking constraints of email ,name ,password....et
     body('email','Enter a valid Email').isEmail(),
     body('password','password must be min of 6 characters').isLength({min:6})
 ],async(req,res)=>{
+    let success=false;
     const errors= validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(400).json({errors: errors.array()});
+        return res.status(400).json({success,errors: errors.array()});
     }
     try{//finding if email already exist in database other wise store in db else throw error
     let user=await User.findOne({email:req.body.email});
         if(user)
-        return res.status(400).json({error:"User with this email Already exist!!!"});
+        return res.status(400).json({success,error:"User with this email Already exist!!!"});
         //Salting and Hashing the password
         const salt=bcrypt.genSaltSync(10);
         const secPswd=await bcrypt.hash(req.body.password,salt)
@@ -39,8 +40,8 @@ router.post('/createUser',[//checking constraints of email ,name ,password....et
             }
         }
         let authtoken=jwt.sign(data,JWT_Secret);
-    
-        res.json({authtoken})
+        success=true;
+        res.json({success,authtoken})
     }
     catch (err){
         console.log(err.message);

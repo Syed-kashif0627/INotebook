@@ -4,7 +4,7 @@ import noteContext from '../context/notes/noteContext';
 
 const Login = () => {
     const context=useContext(noteContext);
-    const {host}=context;
+    const {host,showAlert}=context;
 
     const [credential,setCredentials]=useState({email:"",password:""});
     const navigate=useNavigate();//same as useHistory Name changed in newer versions
@@ -24,9 +24,10 @@ const Login = () => {
         if(json.success){
             localStorage.setItem('token',json.authtoken);
             navigate('/')
+            showAlert('Login Successful','success');
         }
         else{
-            alert("Invalid Credentials!! Enter Valid User id or Password")
+            showAlert('Invalid Credentials','danger');
         }
     }
     const handleChange=(e)=>{
@@ -34,19 +35,21 @@ const Login = () => {
     }
 
     return (
-    <div className='container my-3'>
+<div  className='container my-3'>
+<div className="form-container" style={{margin: '20px'}}>
     <form onSubmit={handleSubmit}>
         <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-            <input onChange={handleChange} type="email" className="form-control" value={credential.email} name='email' id="exampleInputEmail1" aria-describedby="emailHelp" />
+            <input onChange={handleChange} type="email" className="form-control mod"  value={credential.email} name='email' id="exampleInputEmail1" aria-describedby="emailHelp" />
         </div>
         <div className="mb-3">
             <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-            <input onChange={handleChange} type="password" className="form-control" value={credential.password} name='password' id="exampleInputPassword1" />
+            <input onChange={handleChange} type="password" className="form-control mod"  value={credential.password} name='password' id="exampleInputPassword1" />
         </div>
-        <button type="submit" className="btn btn-primary" >Submit</button>
+        <button type="submit" className="btn btn-primary" >Login</button>
     </form>
-    </div>
+</div>
+</div>   
     )
 }
 

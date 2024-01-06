@@ -31,16 +31,6 @@ const NoteState = (props) => {
     })
     const newnote=await res.json();
 
-    // const =  {
-    //   "_id": "658c586757f986fdf467d1742",
-    //   "user": "657b0724315273cc174d5c78e",
-    //   "title": title,
-    //   "description": description,
-    //   "tag": tag,
-    //   "date": "2023-12-27T17:01:25.309Z",
-    //   "__v": 0
-    // }
-    // //notes.concat(newnote)
     if(title.length>0)
         setNotes(notes.concat(newnote))
   }
@@ -85,8 +75,21 @@ const NoteState = (props) => {
       }
       setNotes(newNotes);
   }
+  
+  //Alert context
+  const [alert,setAlert]=useState(null);
+  const showAlert= (message,type)=>{
+    setAlert({
+      msg:message,
+      type:type
+    })
+    setTimeout(()=>{
+      setAlert(null)
+    },1800
+    )
+  }
   return (
-    <NoteContext.Provider value={{host,notes,setNotes,addNote,deleteNote,getallNotes,editNote}}>
+    <NoteContext.Provider value={{host,notes,setNotes,addNote,deleteNote,getallNotes,editNote,alert,showAlert}}>
       {props.children}
     </NoteContext.Provider>
   );

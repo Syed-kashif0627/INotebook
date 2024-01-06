@@ -4,12 +4,13 @@ import noteContext from '../context/notes/noteContext';
 
 function AddNote() {
     const context=useContext(noteContext);
-    const {addNote}=context;
+    const {addNote,showAlert}=context;
 
     const [note,setNote]=useState({title:"",description:"",tag:''});
     const handlechange=(e)=>{
         e.preventDefault();
         addNote(note.title,note.description,note.tag);
+        showAlert('Notes Added Successfully','success')
         setNote({title:"",description:"",tag:""})
     }
 

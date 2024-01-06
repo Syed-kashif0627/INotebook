@@ -6,7 +6,7 @@ import noteContext from '../context/notes/noteContext';
 
 const Notes = () => {
     const context = useContext(noteContext);
-    const { notes, getallNotes,editNote } = context;
+    const { notes, getallNotes,editNote,showAlert} = context;
 
     useEffect(() => {
         getallNotes()
@@ -23,6 +23,7 @@ const Notes = () => {
         e.preventDefault();
         editNote(note.id,note.etitle,note.edescription,note.etag);
         myref.current.click();
+        showAlert('Notes Updated Successfully','success')
     }
 
     const handleEvent=(event)=>{
